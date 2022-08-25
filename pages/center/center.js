@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    isAuth: false
   },
 
   /**
@@ -26,7 +26,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    // 获取本地登录 token
+    const token = wx.getStorageSync('auth_token')
+    this.setData('isAuth', !!token)
   },
 
   /**
