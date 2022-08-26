@@ -5,10 +5,17 @@
   padding: 20rpx;
 }
 .center-profile {
+  margin-bottom: 40rpx;
 }
-.profile-not-logged {
+.profile-not-logged,.profile-is-logged {
   border-radius: 20rpx;
 }
 .logininfo-title,.logininfo-label {
   white-space: nowrap;
+}
+.service-list-wrap {
+  border-radius: 20rpx;
+}
+.service-list{
+  border-top: 1px solid #f5f5f5;
 }

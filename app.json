@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/center/center",
-    "pages/auth/auth"
+    "pages/auth/auth",
+    "pages/shop/shop"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -31,6 +32,9 @@
     "van-button": "@vant/weapp/button/index",
     "van-cell": "@vant/weapp/cell/index",
     "van-image": "@vant/weapp/image/index",
-    "van-toast": "@vant/weapp/toast/index"
+    "van-toast": "@vant/weapp/toast/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index"
   }
 }

@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isAuth: false
+    isAuth: false,
+    services: [{icon: 'shop-o', title: '附近门店'}, {icon: 'service-o', title: '在线客服'}]
   },
 
   /**
@@ -28,7 +29,7 @@ Page({
   onShow() {
     // 获取本地登录 token
     const token = wx.getStorageSync('auth_token')
-    this.setData('isAuth', !!token)
+    this.setData({isAuth: !!token})
   },
 
   /**
@@ -68,6 +69,31 @@ Page({
   openAuthPage() {
     wx.navigateTo({
       url: '../auth/auth',
+    })
+  },
+  checkIsAuth() {
+    // 检查是否有token，否则跳转到授权页
+    return new Promise((resolve, reject) => {
+      try {
+        const token = wx.getStorageSync('auth_token')
+        if(token){
+          resolve(token)
+        }else{
+          throw new Error('未找到本地 token')
+        }
+      } catch (error) {
+        reject(error)
+      }
+    })
+  },
+  goToShop() {
+    // 前往福建门店
+    this.checkIsAuth().then((success) => {
+      wx.navigateTo({
+        url: '',
+      })
+    }, () => {
+      this.openAuthPage()
     })
   }
 })
