@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/center/center"
+    "pages/center/center",
+    "pages/auth/auth"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -28,6 +29,8 @@
   },
   "usingComponents": {
     "van-button": "@vant/weapp/button/index",
-    "van-cell": "@vant/weapp/cell/index"
+    "van-cell": "@vant/weapp/cell/index",
+    "van-image": "@vant/weapp/image/index",
+    "van-toast": "@vant/weapp/toast/index"
   }
 }

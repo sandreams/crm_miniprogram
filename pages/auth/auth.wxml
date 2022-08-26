@@ -1,0 +1,22 @@
+<!--pages/auth/auth.wxml-->
+<view class="container">
+  <van-toast id="van-toast" />
+<view class="auth-wrapper">
+  <block wx:if="{{hasUserInfo}}">
+    <view class="top-text">
+      <text>授权登录</text>
+    </view>
+    <view class="user-is-auth">
+      <van-image width="100" height="100" src="/icons/zhanwei.png" custom-class="auth-img" />
+      <van-button round type="primary" open-type="getPhoneNumber"  bind:getphonenumber="getPhoneNumber">授权手机号登录</van-button>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="user-not-auth">
+      <van-image round width="100" height="100" src="https://img.yzcdn.cn/vant/cat.jpeg" custom-class="auth-logo" />
+      <van-button wx:if="{{canIUseGetUserProfile}}" round type="primary"  bind:click="getUserProfile">微信授权一键登录</van-button>
+      <button wx:else open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 微信授权一键登录 </button>
+    </view>
+  </block>
+</view>
+</view>
