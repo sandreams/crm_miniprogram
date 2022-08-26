@@ -17,7 +17,7 @@
       <van-cell center title="我的服务" border="{{ false }}" use-label-slot custom-class="service-list-wrap">
         <view slot="label" class="service-list">
           <van-grid column-num="4">
-            <van-grid-item icon="shop-o" text="附近门店" />
+            <van-grid-item icon="shop-o" text="附近门店" bind:click="goToShop" />
             <van-grid-item icon="balance-o" text="充值" />
             <van-grid-item icon="coupon-o" text="卡券中心" />
             <van-grid-item icon="service-o" text="在线客服" />

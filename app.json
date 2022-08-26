@@ -5,6 +5,16 @@
     "pages/auth/auth",
     "pages/shop/shop"
   ],
+  "requiredPrivateInfos":[
+    "getLocation",
+    "onLocationChange",
+    "startLocationUpdate"
+  ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "将获取你的具体位置信息，用于匹配合适的门店及服务"
+    }
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
@@ -35,6 +45,7 @@
     "van-toast": "@vant/weapp/toast/index",
     "van-icon": "@vant/weapp/icon/index",
     "van-grid": "@vant/weapp/grid/index",
-    "van-grid-item": "@vant/weapp/grid-item/index"
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-dialog": "@vant/weapp/dialog/index"
   }
 }

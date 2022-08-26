@@ -87,10 +87,10 @@ Page({
     })
   },
   goToShop() {
-    // 前往福建门店
+    // 前往附近门店
     this.checkIsAuth().then((success) => {
       wx.navigateTo({
-        url: '',
+        url: '../shop/shop',
       })
     }, () => {
       this.openAuthPage()

@@ -1,2 +1,4 @@
 <!--pages/shop/shop.wxml-->
-<text>pages/shop/shop.wxml</text>
+<van-dialog id="van-dialog" />
+
+<text>门店列表</text>
