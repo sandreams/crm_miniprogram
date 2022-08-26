@@ -52,6 +52,9 @@ App({
   setSession(value) {
     wx.setStorageSync('auth_token', value)
   },
+  getUserInfo() {
+    return request.get('/wxapp/user/userInfo')
+  },
   globalData: {
     baseUrl: 'http://192.168.63.21'
   }

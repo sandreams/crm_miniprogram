@@ -1,4 +1,4 @@
-// pages/shop/shop.js
+// pages/shopselect/shopselect.js
 import Dialog from '@vant/weapp/dialog/dialog';
 // var request = require('../../utils/request')
 Page({
@@ -34,24 +34,24 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    // var that = this
-    // if(this.data.canIUseGetSettings) {
-    //   wx.getSetting({
-    //     withSubscriptions: false,
-    //     success(res) {
-    //       console.log('setting: ', res.authSetting)
-    //       const authSetting = res.authSetting
-    //       // 未授权会询问
-    //       if(!authSetting['scope.userLocation']) {
-    //         console.log('开始请求位置信息')
-    //         that.openLocationSetting()
-    //       }
-    //     }
-    //   })
-    // }else {
-    //   this.openLocationSetting()
-    // }
-    // this.getUserInfo()
+    var that = this
+    if(this.data.canIUseGetSettings) {
+      wx.getSetting({
+        withSubscriptions: false,
+        success(res) {
+          console.log('setting: ', res.authSetting)
+          const authSetting = res.authSetting
+          // 未授权会询问
+          if(!authSetting['scope.userLocation']) {
+            console.log('开始请求位置信息')
+            that.openLocationSetting()
+          }
+        }
+      })
+    }else {
+      this.openLocationSetting()
+    }
+    this.getUserInfo()
   },
 
   /**
@@ -115,11 +115,6 @@ Page({
       if (res.data) {
         that.setData({userInfo: res.data})
       }
-    })
-  },
-  goToShopSelectPage() {
-    wx.navigateTo({
-      url: '../shopselect/shopselect',
     })
   }
 })

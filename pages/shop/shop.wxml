@@ -1,4 +1,4 @@
 <!--pages/shop/shop.wxml-->
 <van-dialog id="van-dialog" />
 
-<text>门店列表</text>
+<button bindtap="goToShopSelectPage">进入门店选择</button>

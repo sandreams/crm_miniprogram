@@ -3,9 +3,10 @@
     "pages/index/index",
     "pages/center/center",
     "pages/auth/auth",
-    "pages/shop/shop"
+    "pages/shop/shop",
+    "pages/shopselect/shopselect"
   ],
-  "requiredPrivateInfos":[
+  "requiredPrivateInfos": [
     "getLocation",
     "onLocationChange",
     "startLocationUpdate"
