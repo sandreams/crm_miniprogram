@@ -64,5 +64,10 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+  openAuthPage() {
+    wx.navigateTo({
+      url: '../auth/auth',
+    })
   }
 })

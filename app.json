@@ -25,5 +25,9 @@
         "selectedIconPath": "icons/user.png"
       }
     ]
+  },
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index",
+    "van-cell": "@vant/weapp/cell/index"
   }
 }

@@ -4,19 +4,13 @@
   background: #f5f5f5;
   display: flex;
   flex-direction: column;
+  padding: 20rpx;
 }
 .center-profile {
-  padding: 20rpx;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
 }
-.center-profile .profile-authbtn{
-  display: inline-block;
-  margin-right: auto;
+.profile-not-logged {
+  border-radius: 20rpx;
 }
-.profile-authbtn button {
-  border-radius: 20px;
-  padding: 12rpx 24rpx;
-  font-size: 12rpx;
+.logininfo-title,.logininfo-label {
+  white-space: nowrap;
 }

@@ -5,13 +5,11 @@
         
       </block>
       <block wx:else>
-        <view class="profile-logininfo">
-          <text>登录/授权</text>
-          <text>立即授权，享受更多的专属服务</text>
-        </view>
-        <view class="profile-authbtn">
-          <button size="mini" type="primary" bindtap="openAuthPage">立即授权</button>
-        </view>
+        <van-cell center title="登录/授权" label="立即授权，享受更多的专属服务" border="{{ false }}" label-class="logininfo-label" title-class="logininfo-title" custom-class="profile-not-logged">
+          <view>
+            <van-button round type="warning" size="small" bindtap="openAuthPage">立即授权</van-button>
+          </view>
+        </van-cell>
       </block>
     </view>
   
