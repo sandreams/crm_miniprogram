@@ -59,30 +59,16 @@ Page({
       url: "../auth/auth",
     });
   },
-  checkIsAuth() {
-    // 检查是否有token，否则跳转到授权页
-    return new Promise((resolve, reject) => {
-      try {
-        const token = wx.getStorageSync("auth_token");
-        if (token) {
-          resolve(token);
-        } else {
-          throw new Error("未找到本地 token");
-        }
-      } catch (error) {
-        reject(error);
-      }
-    });
-  },
   goToShop() {
     // 前往附近门店
-    if (getApp().globalData.debug) {
+    const app = getApp();
+    if (app.globalData.debug) {
       wx.navigateTo({
         url: "../shop/shop",
       });
       return;
     }
-    this.checkIsAuth().then(
+    app.checkIsAuth().then(
       (success) => {
         wx.navigateTo({
           url: "../shop/shop",

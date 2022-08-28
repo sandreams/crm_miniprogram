@@ -1,17 +1,24 @@
 <!--pages/shop/shop.wxml-->
 <van-dialog id="van-dialog" />
-<wxs module="shop">
+<!-- <wxs module="shop">
   var shopName = function(isShop) {
     return ''
   }
   module.exports = {
     shopName: shopName
   }
-</wxs>
+</wxs> -->
 <view class="container">
-  <van-cell is-link  custom-class="">
+  <view class="section-shop-info">
+    <van-cell is-link  custom-class="shop-info" bind:click="goToShopSelectPage">
     <view slot="title">
-      服务门店：{{shop.shopName}}
+      <block wx:if="{{!!userInfo}}">
+        <text>服务门店: {{userInfo.shop_id}}</text>
+      </block>
+      <block wx:else>
+        <text>服务门店: 未选择</text>
+      </block>
     </view>
   </van-cell>
+  </view>
 </view>

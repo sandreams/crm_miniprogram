@@ -102,7 +102,7 @@ App({
     });
   },
   getUserInfo() {
-    if (app.globalData.debug) {
+    if (getApp().globalData.debug) {
       return Promise.resolve({
         code: 12345,
         data: {
@@ -112,6 +112,29 @@ App({
       });
     }
     return request.get("/wxapp/user/userInfo");
+  },
+  checkIsAuth() {
+    // 检查是否有token，否则跳转到授权页
+    return new Promise((resolve, reject) => {
+      try {
+        wx.getStorage({
+          key: "auth_token",
+          encrypt: true,
+          success(res) {
+            if (res.data) {
+              resolve(res.data);
+            } else {
+              reject();
+            }
+          },
+          fail(err) {
+            reject(err);
+          },
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
   },
   globalData: {
     baseUrl: "http://192.168.63.21",
