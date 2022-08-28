@@ -1,40 +1,37 @@
 // pages/shop/shop.js
-import Dialog from '@vant/weapp/dialog/dialog';
-// var request = require('../../utils/request')
-var app = getApp()
-Page({
+import Dialog from "@vant/weapp/dialog/dialog";
 
+Page({
   /**
    * 页面的初始数据
    */
   data: {
     canIUseGetSettings: false,
     userInfo: null,
-    isShop: false
+    isShop: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    if (wx.canIUse('getSetting')) {
+    if (wx.canIUse("getSetting")) {
       this.setData({
-        canIUseGetSettings: true
-      })
+        canIUseGetSettings: true,
+      });
     }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady() {
-
-  },
+  onReady() {},
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    this.initData();
     // var that = this
     // if(this.data.canIUseGetSettings) {
     //   wx.getSetting({
@@ -52,76 +49,69 @@ Page({
     // }else {
     //   this.openLocationSetting()
     // }
-    this.getUserInfo()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide() {
-
-  },
+  onHide() {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload() {
-
-  },
+  onUnload() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
-
-  },
+  onPullDownRefresh() {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom() {
-
-  },
+  onReachBottom() {},
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage() {
-
-  },
+  onShareAppMessage() {},
   openLocationSetting() {
     wx.getLocation({
       altitude: false,
       success(res) {
-        console.log('res: ', res)
+        console.log("res: ", res);
       },
-      fail(){
+      fail() {
         Dialog.confirm({
-          title: '请求授权当前位置',
-          message: '需要获取您的地理位置，请确认授权'
+          title: "请求授权当前位置",
+          message: "需要获取您的地理位置，请确认授权",
         }).then(() => {
           // 打开设置
           wx.openSetting({
             withSubscriptions: false,
-          })
-        })
-      }
-    })
+          });
+        });
+      },
+    });
   },
-  getUserInfo() {
-    app.getUserInfo()
-    // const app = getApp()
-    // const that = this
-    // app.getUserInfo().then((res) => {
-    //   console.log('userinfo: ', res)
-    //   if (res.data) {
-    //     that.setData({userInfo: res.data})
-    //   }
-    // })
+  initData() {
+    const app = getApp();
+    const that = this;
+    app
+      .getUserInfo()
+      .then((res) => {
+        console.log("res: ", res);
+        that.setData({
+          userInfo: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log("err: ", err);
+      });
   },
   goToShopSelectPage() {
     wx.navigateTo({
-      url: '../shopselect/shopselect',
-    })
-  }
-})
+      url: "../shopselect/shopselect",
+    });
+  },
+});

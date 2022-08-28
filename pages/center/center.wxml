@@ -1,4 +1,5 @@
 <!--pages/center/center.wxml-->
+<van-dialog id="van-dialog" />
 <view class="container">
     <view class="center-profile">
       <block wx:if="{{isAuth}}">

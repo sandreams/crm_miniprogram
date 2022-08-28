@@ -21,6 +21,9 @@ App({
       },
     });
   },
+  require(url) {
+    return require(url);
+  },
   login() {
     // 登录到后台并获取 token
     return new Promise((resolve, reject) => {
@@ -98,16 +101,17 @@ App({
       },
     });
   },
-  async getUserInfo() {
-    let userInfo = null;
-    try {
-      // const user = await request.get('/wxapp/user/userInfo')
-      const user = await Promise.resolve("111");
-      console.log("user: ", user);
-    } catch (error) {
-      console.log("error: ", error);
+  getUserInfo() {
+    if (app.globalData.debug) {
+      return Promise.resolve({
+        code: 12345,
+        data: {
+          member_id: 1,
+          shop_id: 231,
+        },
+      });
     }
-    return;
+    return request.get("/wxapp/user/userInfo");
   },
   globalData: {
     baseUrl: "http://192.168.63.21",

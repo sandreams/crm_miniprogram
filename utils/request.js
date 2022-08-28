@@ -1,3 +1,4 @@
+import Dialog from "@vant/weapp/dialog/dialog";
 const request = function (url, options = {}) {
   return new Promise((resolve, reject) => {
     const app = getApp();
@@ -14,6 +15,18 @@ const request = function (url, options = {}) {
         resolve(res.data);
       },
       fail(err) {
+        if (err.code === 12345) {
+          Dialog.confirm({
+            title: "登录已过期",
+            message: "是否重新登录？",
+          }).then(() => {
+            // 前往个人中心
+            console.log("前往个人中心");
+            wx.switchTab({
+              url: "/pages/center/center",
+            });
+          });
+        }
         reject(err);
       },
     });
