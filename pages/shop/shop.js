@@ -1,6 +1,7 @@
 // pages/shop/shop.js
 import Dialog from '@vant/weapp/dialog/dialog';
 // var request = require('../../utils/request')
+var app = getApp()
 Page({
 
   /**
@@ -51,7 +52,7 @@ Page({
     // }else {
     //   this.openLocationSetting()
     // }
-    // this.getUserInfo()
+    this.getUserInfo()
   },
 
   /**
@@ -108,14 +109,15 @@ Page({
     })
   },
   getUserInfo() {
-    const app = getApp()
-    const that = this
-    app.getUserInfo().then((res) => {
-      console.log('userinfo: ', res)
-      if (res.data) {
-        that.setData({userInfo: res.data})
-      }
-    })
+    app.getUserInfo()
+    // const app = getApp()
+    // const that = this
+    // app.getUserInfo().then((res) => {
+    //   console.log('userinfo: ', res)
+    //   if (res.data) {
+    //     that.setData({userInfo: res.data})
+    //   }
+    // })
   },
   goToShopSelectPage() {
     wx.navigateTo({

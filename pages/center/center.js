@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isAuth: false,
+    isShop: false,
     services: [{icon: 'shop-o', title: '附近门店'}, {icon: 'service-o', title: '在线客服'}]
   },
 
@@ -88,6 +88,10 @@ Page({
   },
   goToShop() {
     // 前往附近门店
+    wx.navigateTo({
+      url: '../shop/shop',
+    })
+    return
     this.checkIsAuth().then((success) => {
       wx.navigateTo({
         url: '../shop/shop',

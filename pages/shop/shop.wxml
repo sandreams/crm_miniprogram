@@ -1,4 +1,17 @@
 <!--pages/shop/shop.wxml-->
 <van-dialog id="van-dialog" />
-
-<button bindtap="goToShopSelectPage">进入门店选择</button>
+<wxs module="shop">
+  var shopName = function(isShop) {
+    return ''
+  }
+  module.exports = {
+    shopName: shopName
+  }
+</wxs>
+<view class="container">
+  <van-cell is-link  custom-class="">
+    <view slot="title">
+      服务门店：{{shop.shopName}}
+    </view>
+  </van-cell>
+</view>
