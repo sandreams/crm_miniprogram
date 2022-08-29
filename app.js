@@ -1,4 +1,5 @@
 // app.js
+import regeneratorRuntime from 'regenerator-runtime'
 import * as request from "./utils/request";
 App({
   onLaunch() {
@@ -86,20 +87,10 @@ App({
     wx.removeStorageSync("auth_token");
   },
   setSession(value) {
-    wx.setStorage({
-      key: "auth_token",
-      data: value,
-      encrypt: true,
-    });
+    wx.setStorageSync('auth_token', value)
   },
   getSession() {
-    wx.getStorage({
-      key: "auth_token",
-      encrypt: true,
-      success(res) {
-        console.log("res: ", res);
-      },
-    });
+    return wx.getStorageSync('auth_token')
   },
   getUserInfo() {
     if (getApp().globalData.debug) {
@@ -119,7 +110,7 @@ App({
       try {
         wx.getStorage({
           key: "auth_token",
-          encrypt: true,
+          encrypt: false,
           success(res) {
             if (res.data) {
               resolve(res.data);
@@ -138,6 +129,6 @@ App({
   },
   globalData: {
     baseUrl: "http://192.168.63.21",
-    debug: true,
+    debug: false,
   },
 });

@@ -3,7 +3,7 @@
   padding: 20rpx;
 }
 .section-shop-info {
-  border-radius: 20rpx;
 }
 .shop-info {
+  border-radius: 20rpx;
 }

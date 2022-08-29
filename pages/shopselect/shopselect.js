@@ -12,6 +12,7 @@ Page({
     isShop: false,
     isAuth: false,
     showList: false,
+    shopList: []
   },
 
   /**
@@ -91,24 +92,41 @@ Page({
         success(res) {
           console.log("setting: ", res.authSetting);
           const authSetting = res.authSetting;
-          // 未授权会询问
-          if (!authSetting["scope.userLocation"]) {
+          // 未授权过会询问
+          if (authSetting["scope.userLocation"] === undefined) {
             console.log("开始请求位置信息");
             that.openLocationSetting();
+          } else if (authSetting["scope.userLocation"] === false) {
+            // 如果之前拒绝授权过会弹出提示
+            Dialog.confirm({
+              title: "请求授权当前位置",
+              message: "需要获取您的地理位置，请确认授权",
+              cancelButtonText: "暂不",
+            })
+              .then(() => {
+                // 打开设置
+                wx.openSetting({
+                  withSubscriptions: false,
+                });
+              })
+              .catch(() => {
+                // 关闭授权窗口
+              });
           }
         },
       });
     } else {
       this.openLocationSetting();
     }
-    if (this.data.isAuth) {
-      this.getUserInfo();
-    }
   },
   loadItems() {
-    if (this.data.showList) {
-      // 加载门店列表
-    }
+    const that = this;
+    Promise.all([this.getUserInfo(), this.loadShopItems()]).then((res) => {
+      that.setData({
+        userInfo: res[0].data,
+        shopList: res[1].data.shops,
+      });
+    });
   },
   openLocationSetting() {
     wx.getLocation({
@@ -148,14 +166,15 @@ Page({
       },
     });
   },
-  getUserInfo() {
+  async loadShopItems() {
+    let items = [];
+    items = await request.get("/wxapp/user/getShopList", {});
+    return items;
+  },
+  async getUserInfo() {
+    let userInfo = null;
     const app = getApp();
-    const that = this;
-    app.getUserInfo().then((res) => {
-      console.log("userinfo: ", res);
-      if (res.data) {
-        that.setData({ userInfo: res.data });
-      }
-    });
+    userInfo = await app.getUserInfo();
+    return userInfo;
   },
 });

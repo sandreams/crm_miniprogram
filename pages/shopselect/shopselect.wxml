@@ -1,2 +1,10 @@
 <!--pages/shopselect/shopselect.wxml-->
-<text>pages/shopselect/shopselect.wxml</text>
+<van-toast id="van-toast" />
+<van-dialog id="van-dialog" />
+<view class="container">
+  <van-cell center title="关联店铺" border="{{ false }}">
+    <view>
+      <van-button round type="warning" size="small" bindtap="openAuthPage">自动关联</van-button>
+    </view>
+  </van-cell>
+</view>

@@ -13,7 +13,7 @@
     <van-cell is-link  custom-class="shop-info" bind:click="goToShopSelectPage">
     <view slot="title">
       <block wx:if="{{!!userInfo}}">
-        <text>服务门店: {{userInfo.shop_id}}</text>
+        <text>服务门店: {{userInfo.name}}</text>
       </block>
       <block wx:else>
         <text>服务门店: 未选择</text>
