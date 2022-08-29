@@ -83,9 +83,6 @@ Page({
     // 初始化加载数据
     // 如果选择授权地理位置会关联到最近一家门店，如果拒绝授权会弹出列表手动选择门店
     const that = this;
-    if (that.data.showList) {
-      return;
-    }
     if (this.data.canIUseGetSettings) {
       wx.getSetting({
         withSubscriptions: false,
@@ -111,6 +108,9 @@ Page({
               })
               .catch(() => {
                 // 关闭授权窗口
+                that.setData({
+                  shopList: true
+                })
               });
           }
         },
@@ -148,21 +148,10 @@ Page({
           });
       },
       fail() {
-        Dialog.confirm({
-          title: "请求授权当前位置",
-          message: "需要获取您的地理位置，请确认授权",
-        })
-          .then(() => {
-            // 打开设置
-            wx.openSetting({
-              withSubscriptions: false,
-            });
-          })
-          .catch(() => {
-            that.setData({
-              showList: true,
-            });
-          });
+        // 手动选择门店
+        that.setData({
+          showList: true,
+        });
       },
     });
   },
@@ -177,4 +166,7 @@ Page({
     userInfo = await app.getUserInfo();
     return userInfo;
   },
+  bindShop(){
+    request.post('')
+  }
 });

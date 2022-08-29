@@ -4,7 +4,7 @@
 <view class="container">
   <van-cell center title="关联店铺" border="{{ false }}">
     <view>
-      <van-button round type="warning" size="small" bindtap="openAuthPage">自动关联</van-button>
+      <van-button round type="warning" size="small" bindtap="">自动关联</van-button>
     </view>
   </van-cell>
 </view>

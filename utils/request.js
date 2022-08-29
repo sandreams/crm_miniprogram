@@ -5,16 +5,17 @@ const request = function (url, options = {}) {
     wx.request({
       url: app.globalData.baseUrl + url,
       method: options.method || "GET",
-      data:
-        options.method == "GET" ? options.data : JSON.stringify(options.data),
-      // header 里存放auth-token
       header: {
-        Authorization: app.getSession()
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: app.getSession(),
       },
+      dataType: "json",
+      data: options.data,
+        // options.method == "GET" ? options.data : JSON.stringify(options.data),
       success(res) {
         if (res.data && res.data.code === 40029) {
           // 清除token
-          app.clearSession()
+          app.clearSession();
           Dialog.confirm({
             title: "登录已过期",
             message: "是否重新登录？",
@@ -24,15 +25,15 @@ const request = function (url, options = {}) {
               url: "/pages/center/center",
             });
           });
-          reject(res.data)
-          return
+          reject(res.data);
+          return;
         }
         resolve(res.data);
       },
       fail(err) {
         if (err.code === 40029) {
           // 清除token
-          app.clearSession()
+          app.clearSession();
           Dialog.confirm({
             title: "登录已过期",
             message: "是否重新登录？",
