@@ -1,10 +1,14 @@
 <!--pages/shopselect/shopselect.wxml-->
-<van-toast id="van-toast" />
 <van-dialog id="van-dialog" />
+<van-toast id="van-toast" />
+
 <view class="container">
-  <van-cell center title="关联店铺" border="{{ false }}">
-    <view>
-      <van-button round type="warning" size="small" bindtap="">自动关联</van-button>
-    </view>
-  </van-cell>
+  <view wx:if="{{shops.length}}" class="shop-list">
+    <van-cell-group>
+    <block wx:for="{{shops}}" wx:for-item="item" wx:key="shop_id">
+      <van-cell data-item="{{item}}" is-link center value="选择" title="{{item.shop_name}}" icon="location-o" label="{{item.distance}}km" title-class="shopitem-title" bind:click="onSelectShop">
+      </van-cell>
+    </block>
+    </van-cell-group>
+  </view>
 </view>

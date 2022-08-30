@@ -89,10 +89,8 @@ Page({
         message: "授权成功",
         duration: 2000,
         onClose: () => {
-          // 关闭当前页并返回个人中心
-          wx.redirectTo({
-            url: "../center/center",
-          });
+          // 关闭当前页并返回上一页
+          wx.navigateBack();
         },
       });
     } else {
@@ -106,10 +104,8 @@ Page({
             message: "授权成功",
             duration: 2000,
             onClose: () => {
-              // 关闭当前页并返回个人中心
-              wx.redirectTo({
-                url: "../center/center",
-              });
+              // 关闭当前页并返回上一页
+              wx.navigateBack()
             },
           });
         })

@@ -22,13 +22,10 @@ App({
       },
     });
   },
-  require(url) {
-    return require(url);
-  },
   login() {
     // 登录到后台并获取 token
+    const that = this;
     return new Promise((resolve, reject) => {
-      let that = this;
       try {
         this.clearSession();
         wx.checkSession({
@@ -37,11 +34,12 @@ App({
             that
               .getAuthToken()
               .then((data) => {
-                console.log("data: ", data);
+                console.log("登录结果 data: ", data);
                 that.setSession(data.data.token);
                 resolve();
               })
-              .catch(() => {
+              .catch((err) => {
+                console.log("登录结果 data: ", data);
                 reject();
               });
           },
@@ -80,7 +78,9 @@ App({
       });
     }
     return request.post("/wxapp/login/getWxMobile", {
-      code: "dfsdfsdfsd54654",
+      data: {
+        code: "dfsdfsdfsd54654",
+      },
     });
   },
   clearSession() {

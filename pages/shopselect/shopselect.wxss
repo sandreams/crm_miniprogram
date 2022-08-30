@@ -1,1 +1,4 @@
 /* pages/shopselect/shopselect.wxss */
+.shopitem-title {
+  white-space: nowrap;
+}

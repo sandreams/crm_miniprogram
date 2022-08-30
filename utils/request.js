@@ -6,12 +6,12 @@ const request = function (url, options = {}) {
       url: app.globalData.baseUrl + url,
       method: options.method || "GET",
       header: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
         Authorization: app.getSession(),
       },
       dataType: "json",
       data: options.data,
-        // options.method == "GET" ? options.data : JSON.stringify(options.data),
+      // options.method == "GET" ? options.data : JSON.stringify(options.data),
       success(res) {
         if (res.data && res.data.code === 40029) {
           // 清除token

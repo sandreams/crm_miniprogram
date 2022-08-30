@@ -155,7 +155,7 @@ Page({
     app.checkIsAuth().then(
       (success) => {
         wx.navigateTo({
-          url: "../shop/shop",
+          url: "../shopselect/shopselect",
         });
       },
       () => {
