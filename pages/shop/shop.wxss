@@ -1,9 +1,0 @@
-/* pages/shop/shop.wxss */
-.container {
-  padding: 20rpx;
-}
-.section-shop-info {
-}
-.shop-info {
-  border-radius: 20rpx;
-}

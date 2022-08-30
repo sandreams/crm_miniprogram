@@ -61,7 +61,7 @@ Page({
         that.setData({
           showList: true
         })
-      }, 1500)
+      }, 1000)
     });
   },
   openAuthPage() {

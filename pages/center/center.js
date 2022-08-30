@@ -1,7 +1,6 @@
 // pages/center/center.js
 import Dialog from "@vant/weapp/dialog/dialog";
 import Toast from "@vant/weapp/toast/toast";
-import * as request from "../../utils/request";
 const app = getApp();
 Page({
   /**
