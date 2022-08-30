@@ -15,6 +15,18 @@
         </van-cell>
       </block>
     </view>
+    <view class="section-shop-info">
+    <van-cell title="服务门店"  custom-class="shop-info" value-class="shop-info__value" title-class="shop-info__title">
+    <view>
+      <block wx:if="{{isShop}}">
+        <text>{{userInfo.name}}</text>
+      </block>
+      <block wx:else>
+        <text>未选择</text>
+      </block>
+    </view>
+  </van-cell>
+    </view>
     <view class="center-service">
       <van-cell center title="我的服务" border="{{ false }}" use-label-slot custom-class="service-list-wrap">
         <view slot="label" class="service-list">

@@ -17,5 +17,18 @@
   border-radius: 20rpx;
 }
 .service-list{
-  border-top: 1px solid #f5f5f5;
+  /* border-top: 1px solid #f5f5f5; */
+}
+.section-shop-info {
+  margin-bottom: 40rpx;
+}
+.shop-info {
+  border-radius: 20rpx;
+}
+.shop-info__title{
+  white-space: nowrap;
+  flex: 0!important;
+}
+.shop-info__value{
+  white-space: nowrap;
 }

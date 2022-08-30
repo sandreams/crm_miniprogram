@@ -1,7 +1,7 @@
 // pages/center/center.js
 import Dialog from "@vant/weapp/dialog/dialog";
 import Toast from "@vant/weapp/toast/toast";
-import * as request from '../../utils/request'
+import * as request from "../../utils/request";
 const app = getApp();
 Page({
   /**
@@ -13,6 +13,8 @@ Page({
       { icon: "shop-o", title: "附近门店" },
       { icon: "service-o", title: "在线客服" },
     ],
+    userInfo: null,
+    refresh: true,
   },
 
   /**
@@ -36,10 +38,10 @@ Page({
   onShow() {
     // 获取本地登录 token
     const token = wx.getStorageSync("auth_token");
-    if (token) {
+    if (token && this.data.refresh) {
       this.checkIsBindShop();
     }
-    this.setData({ isAuth: !!token });
+    this.setData({ isAuth: !!token, refresh: false });
   },
 
   /**
@@ -67,6 +69,9 @@ Page({
    */
   onShareAppMessage() {},
   openAuthPage() {
+    this.setData({
+      refresh: true
+    })
     wx.navigateTo({
       url: "../auth/auth",
     });
@@ -74,10 +79,15 @@ Page({
   checkIsBindShop() {
     const that = this;
     app.getUserInfo().then((res) => {
-      if (!res.data.shop_id || app.globalData.debug) {
+      const isShop = res.data.shop_id
+      if (!isShop || app.globalData.debug) {
         // 未绑定店铺会弹出位置选择
         that.openLocationSetting();
       }
+      that.setData({
+        userInfo: res.data,
+        isShop: isShop,
+      });
     });
   },
   openLocationSetting() {
@@ -133,6 +143,9 @@ Page({
   goToShop() {
     // 前往附近门店
     const app = getApp();
+    this.setData({
+      refresh: true,
+    });
     if (app.globalData.debug) {
       wx.navigateTo({
         url: "../shop/shop",
@@ -153,6 +166,9 @@ Page({
   goToShopSelect() {
     // 前往附近门店
     const app = getApp();
+    this.setData({
+      refresh: true,
+    });
     if (app.globalData.debug) {
       wx.navigateTo({
         url: "../shop/shop",
@@ -171,12 +187,15 @@ Page({
     );
   },
   bindShop() {
-    app.bindShop().then(() => {
-      // 成功绑定
-      Toast.success("绑定门店成功");
-    }).catch(() => {
-      // 未成功绑定
-      Toast.fail("绑定门店失败");
-    })
+    app
+      .bindShop()
+      .then(() => {
+        // 成功绑定
+        Toast.success("绑定门店成功");
+      })
+      .catch(() => {
+        // 未成功绑定
+        Toast.fail("绑定门店失败");
+      });
   },
 });
