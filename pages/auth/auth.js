@@ -96,26 +96,37 @@ Page({
     } else {
       // 登录到后台并获取token
       const app = getApp();
+      Toast.loading({
+        duration: 0,
+        message: "登录中...",
+        forbidClick: true,
+      });
       app
         .login()
         .then(() => {
           // 登录成功
-          Toast.success({
-            message: "授权成功",
-            duration: 2000,
-            onClose: () => {
-              // 关闭当前页并返回上一页
-              wx.navigateBack()
-            },
-          });
+          setTimeout(() => {
+            Toast.success({
+              message: "授权成功",
+              duration: 2000,
+              onClose: () => {
+                // 关闭当前页并返回上一页
+                wx.navigateBack();
+              },
+            });
+          }, 500)
         })
         .catch((err) => {
           // 登录失败
-          Toast.fail({
-            message: err || "授权失败！",
-            duration: 2000,
-          });
-        });
+          setTimeout(() => {
+            Toast.fail({
+              message: err || "授权失败！",
+              duration: 2000,
+            });
+          }, 500)
+        }).finally(() => {
+          Toast.clear();
+        })
     }
   },
 });

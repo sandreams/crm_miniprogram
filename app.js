@@ -80,6 +80,7 @@ App({
     return request.post("/wxapp/login/getWxMobile", {
       data: {
         code: "dfsdfsdfsd54654",
+        openid: wx.getStorageSync('openid')
       },
     });
   },
@@ -127,46 +128,36 @@ App({
       }
     });
   },
-  bindShop() {
+  bindShopByLocation(lat, lng) {
     return new Promise((resolve, reject) => {
-      wx.getLocation({
-        altitude: false,
-        success(res) {
-          console.log("打印定位res: ", res);
-          request
-            .post("/wxapp/user/getShopList", {
-              lat: res.latitude,
-              lng: res.longitude,
-            })
-            .then((shopRes) => {
-              if (shopRes.data.shops && shopRes.data.shops.length) {
-                request
-                  .post("/wxapp/user/bindShop", {
-                    data: {
-                      shop_id: shopRes.data.shops[0].shop_id,
-                    },
-                  })
-                  .then((data) => {
-                    console.log("data: ", data);
-                    resolve();
-                  })
-                  .catch(() => {
-                    reject("绑定店铺失败");
-                  });
-              }else {
-                reject('未找到店铺')
-              }
-            })
-            .catch(() => {
-              reject()
-            });
-        },
-        fail() {
-          // 手动选择门店
-          reject('user select')
-        },
-      });
-    })
+      request
+        .post("/wxapp/user/getShopList", {
+          lat: lat,
+          lng: lng,
+        })
+        .then((shopRes) => {
+          if (shopRes.data.shops && shopRes.data.shops.length) {
+            request
+              .post("/wxapp/user/bindShop", {
+                data: {
+                  shop_id: shopRes.data.shops[0].shop_id,
+                },
+              })
+              .then((data) => {
+                console.log("data: ", data);
+                resolve();
+              })
+              .catch(() => {
+                reject("绑定店铺失败");
+              });
+          } else {
+            reject("未找到店铺");
+          }
+        })
+        .catch(() => {
+          reject();
+        });
+    });
   },
   globalData: {
     baseUrl: "http://192.168.63.21",

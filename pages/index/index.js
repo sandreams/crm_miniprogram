@@ -38,17 +38,30 @@ Page({
           });
       },
       fail() {
-        that.openAuthPage();
+        // that.openAuthPage();
       },
     });
   },
   loadItems() {
-    const that = this;
+    const that = this
+    Toast.loading({
+      duration: 0,
+      message: "加载中...",
+      forbidClick: true,
+      loadingType: "spinner",
+    });
     request.get("/wxapp/user/getShopList", {}).then((res) => {
       console.log("res: ", res);
       that.setData({
         shops: res.data.shops,
       });
+    }).finally(() => {
+      setTimeout(() => {
+        Toast.clear();
+        that.setData({
+          showList: true
+        })
+      }, 1500)
     });
   },
   openAuthPage() {

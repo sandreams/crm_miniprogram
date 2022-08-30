@@ -44,12 +44,28 @@ Page({
   },
   loadItems() {
     const that = this;
-    request.get("/wxapp/user/getShopList", {}).then((res) => {
-      console.log("res: ", res);
-      that.setData({
-        shops: res.data.shops,
-      });
+    Toast.loading({
+      duration: 0,
+      message: "加载中...",
+      forbidClick: true,
+      loadingType: "spinner",
     });
+    request
+      .get("/wxapp/user/getShopList", {})
+      .then((res) => {
+        console.log("res: ", res);
+        that.setData({
+          shops: res.data.shops,
+        });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          Toast.clear();
+          that.setData({
+            showList: true,
+          });
+        }, 1000);
+      });
   },
   openAuthPage() {
     wx.navigateTo({

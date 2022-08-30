@@ -24,6 +24,7 @@ Page({
     if (wx.canIUse("getSetting")) {
       this.setData({
         canIUseGetSettings: true,
+        refresh: true,
       });
     }
   },
@@ -36,12 +37,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    // 获取本地登录 token
-    const token = wx.getStorageSync("auth_token");
-    if (token && this.data.refresh) {
-      this.checkIsBindShop();
-    }
-    this.setData({ isAuth: !!token, refresh: false });
+    this.init()
   },
 
   /**
@@ -68,10 +64,18 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage() {},
+  init(){
+    // 获取本地登录 token
+    const token = wx.getStorageSync("auth_token");
+    if (token) {
+      this.checkIsBindShop();
+    }
+    this.setData({ isAuth: !!token, refresh: false });
+  },
   openAuthPage() {
     this.setData({
-      refresh: true
-    })
+      refresh: true,
+    });
     wx.navigateTo({
       url: "../auth/auth",
     });
@@ -79,7 +83,7 @@ Page({
   checkIsBindShop() {
     const that = this;
     app.getUserInfo().then((res) => {
-      const isShop = res.data.shop_id
+      const isShop = res.data.shop_id;
       if (!isShop || app.globalData.debug) {
         // 未绑定店铺会弹出位置选择
         that.openLocationSetting();
@@ -124,6 +128,7 @@ Page({
             Dialog.confirm({
               title: "绑定门店",
               message: "使用当前定位并绑定门店？",
+              cancelButtonText: "手动选择",
             })
               .then(() => {
                 // 关联门店
@@ -187,15 +192,31 @@ Page({
     );
   },
   bindShop() {
-    app
-      .bindShop()
-      .then(() => {
-        // 成功绑定
-        Toast.success("绑定门店成功");
-      })
-      .catch(() => {
-        // 未成功绑定
-        Toast.fail("绑定门店失败");
-      });
+    const that = this
+    wx.getLocation({
+      altitude: false,
+      success(res) {
+        console.log("打印定位res: ", res);
+        app
+          .bindShopByLocation(res.latitude, res.longitude)
+          .then(() => {
+            // 成功绑定
+            Toast.success("绑定门店成功");
+            that.init();
+          })
+          .catch((err) => {
+            Toast.fail("绑定门店失败");
+          });
+      },
+      fail() {
+        // 手动选择门店
+        that.setData({
+          refresh: true,
+        });
+        wx.navigateTo({
+          url: "../shopselect/shopselect",
+        });
+      },
+    });
   },
 });

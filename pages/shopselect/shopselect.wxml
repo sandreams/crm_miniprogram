@@ -3,7 +3,7 @@
 <van-toast id="van-toast" />
 
 <view class="container">
-  <view wx:if="{{shops.length}}" class="shop-list">
+  <view wx:if="{{shops.length && showList }}" class="shop-list">
     <van-cell-group>
     <block wx:for="{{shops}}" wx:for-item="item" wx:key="shop_id">
       <van-cell data-item="{{item}}" is-link center value="选择" title="{{item.shop_name}}" icon="location-o" label="{{item.distance}}km" title-class="shopitem-title" bind:click="onSelectShop">
