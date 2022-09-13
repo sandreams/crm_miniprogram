@@ -1,5 +1,5 @@
 // app.js
-import regeneratorRuntime from 'regenerator-runtime'
+import regeneratorRuntime from "regenerator-runtime";
 import * as request from "./utils/request";
 App({
   onLaunch() {
@@ -12,6 +12,7 @@ App({
               console.log("getOpenid 的结果：", data);
               if (data.data && data.data.openid) {
                 wx.setStorageSync("openid", data.data.openid);
+                wx.setStorageSync("session_key", data.data.session_key);
               }
             },
             (err) => {
@@ -39,7 +40,7 @@ App({
                 resolve();
               })
               .catch((err) => {
-                console.log("登录结果 data: ", data);
+                console.log("登录结果 err: ", err);
                 reject();
               });
           },
@@ -50,7 +51,7 @@ App({
                 that
                   .getAuthToken()
                   .then((data) => {
-                    console.log("data: ", data);
+                    console.log("登录结果 data: ", data);
                     that.setSession(data.data.token);
                     resolve();
                   })
@@ -77,10 +78,15 @@ App({
         },
       });
     }
+    const phone_code = JSON.parse(wx.getStorageSync("phone_code"));
+    wx.removeStorageSync("phone_code");
     return request.post("/wxapp/login/getWxMobile", {
       data: {
-        code: "dfsdfsdfsd54654",
-        openid: wx.getStorageSync('openid')
+        // code: phone_code,
+        encryptedData: phone_code.encryptedData,
+        iv: phone_code.iv,
+        openid: wx.getStorageSync("openid"),
+        session_key: wx.getStorageSync("session_key"),
       },
     });
   },
@@ -159,8 +165,16 @@ App({
         });
     });
   },
+  bindShopBySelectedShop(shop_id) {
+    return request
+      .post("/wxapp/user/bindShop", {
+        data: {
+          shop_id: shop_id,
+        },
+      })
+  },
   globalData: {
-    baseUrl: "http://192.168.63.21",
+    baseUrl: "http://192.168.63.70",
     debug: false,
   },
 });

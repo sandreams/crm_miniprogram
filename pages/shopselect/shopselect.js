@@ -80,36 +80,30 @@ Page({
       event.currentTarget.dataset.item
     ) {
       const item = event.currentTarget.dataset.item;
-      request
-        .post("/wxapp/user/bindShop", {
-          data: {
-            shop_id: item.shop_id,
-          },
-        })
-        .then(
-          () => {
-            // 绑定成功
-            Toast.success({
-              message: "绑定成功",
-              duration: 1500,
-              onClose: () => {
-                // 返回上一级
-                wx.navigateBack();
-              },
-            });
-          },
-          () => {
-            // 绑定失败
-            Toast.fail({
-              message: "绑定失败",
-              duration: 1500,
-              onClose: () => {
-                // reload
-                that.init();
-              },
-            });
-          }
-        );
+      app.bindShopBySelectedShop(item.shop_id).then(
+        () => {
+          // 绑定成功
+          Toast.success({
+            message: "绑定成功",
+            duration: 1500,
+            onClose: () => {
+              // 返回上一级
+              wx.navigateBack();
+            },
+          });
+        },
+        () => {
+          // 绑定失败
+          Toast.fail({
+            message: "绑定失败",
+            duration: 1500,
+            onClose: () => {
+              // reload
+              that.init();
+            },
+          });
+        }
+      );
     }
   }
 });

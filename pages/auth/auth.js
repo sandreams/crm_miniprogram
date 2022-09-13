@@ -84,18 +84,25 @@ Page({
     if (e.detail.errMsg == "getPhoneNumber:fail user deny") {
       // 用户拒绝授权
       // 拒绝授权弹出提示，比如‘必须要授权手机号才能进行下一步操作’
-      // 这里模拟授权成功的场景
-      Toast.success({
-        message: "授权成功",
+      Toast.fail({
+        message: "必须要授权手机号才能进行下一步操作",
         duration: 2000,
         onClose: () => {
           // 关闭当前页并返回上一页
           wx.navigateBack();
         },
       });
-    } else {
+    } else if (e.detail.errMsg == "getPhoneNumber:ok") {
       // 登录到后台并获取token
       const app = getApp();
+      wx.setStorageSync(
+        "phone_code",
+        JSON.stringify({
+          code: e.detail.code,
+          encryptedData: e.detail.encryptedData,
+          iv: e.detail.iv,
+        })
+      );
       Toast.loading({
         duration: 0,
         message: "登录中...",
@@ -114,7 +121,7 @@ Page({
                 wx.navigateBack();
               },
             });
-          }, 500)
+          }, 500);
         })
         .catch((err) => {
           // 登录失败
@@ -123,10 +130,11 @@ Page({
               message: err || "授权失败！",
               duration: 2000,
             });
-          }, 500)
-        }).finally(() => {
-          Toast.clear();
+          }, 500);
         })
+        .finally(() => {
+          Toast.clear();
+        });
     }
   },
 });
