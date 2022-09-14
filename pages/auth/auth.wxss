@@ -24,3 +24,6 @@
 .auth-img {
   margin-bottom: 60rpx;
 }
+.btn-login {
+  padding: 0 100rpx!important;
+}

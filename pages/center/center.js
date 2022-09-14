@@ -26,6 +26,12 @@ Page({
         refresh: true,
       });
     }
+    wx.getStorage({
+      key: 'openid',
+      fail: () => {
+        app.getAuthData();
+      }
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
