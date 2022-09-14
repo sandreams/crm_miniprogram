@@ -1,7 +1,7 @@
 <!--pages/shopselect/shopselect.wxml-->
 <van-dialog id="van-dialog" />
 <van-toast id="van-toast" />
-
+<wxs src="../distance.wxs" module="distance" />
 <view class="container">
 <van-search
   value="{{ query }}"
@@ -15,7 +15,7 @@
   <view wx:if="{{shops.length && showList }}" class="shop-list">
     <van-cell-group>
     <block wx:for="{{shops}}" wx:for-item="item" wx:key="shop_id">
-      <van-cell data-item="{{item}}" is-link center value="选择" title="{{item.shop_name}}" icon="location-o" label="{{item.distance}}km" title-class="shopitem-title" bind:click="onSelectShop">
+      <van-cell data-item="{{item}}" is-link center value="选择" title="{{item.shop_name}}" icon="location-o" label="{{distance.parse(item.distance)}}" title-class="shopitem-title" bind:click="onSelectShop">
       </van-cell>
     </block>
     </van-cell-group>
