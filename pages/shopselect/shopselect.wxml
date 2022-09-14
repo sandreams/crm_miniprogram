@@ -3,6 +3,15 @@
 <van-toast id="van-toast" />
 
 <view class="container">
+<van-search
+  value="{{ query }}"
+  placeholder="请输入搜索关键词"
+  shape="round"
+  bind:search="onSearch"
+  bind:clear="onClear"
+  bind:change="onSearchInput"
+/>
+
   <view wx:if="{{shops.length && showList }}" class="shop-list">
     <van-cell-group>
     <block wx:for="{{shops}}" wx:for-item="item" wx:key="shop_id">

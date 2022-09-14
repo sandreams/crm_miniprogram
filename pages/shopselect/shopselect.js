@@ -10,6 +10,7 @@ const defaultShops = [
 ];
 Page({
   data: {
+    query: "",
     shops: [],
   },
   onLoad() {},
@@ -44,28 +45,34 @@ Page({
   },
   loadItems() {
     const that = this;
+    const query = this.data.query
+    console.log('query: ', query);
     Toast.loading({
       duration: 0,
       message: "加载中...",
       forbidClick: true,
       loadingType: "spinner",
     });
-    request
-      .get("/wxapp/user/getShopList", {})
-      .then((res) => {
-        console.log("res: ", res);
-        that.setData({
-          shops: res.data.shops,
-        });
-      })
-      .finally(() => {
-        setTimeout(() => {
-          Toast.clear();
+      request
+        .get("/wxapp/user/getShopList", {
+          data: {
+            shop_name: query,
+          },
+        })
+        .then((res) => {
+          console.log("res: ", res);
           that.setData({
-            showList: true,
+            shops: res.data.shops,
           });
-        }, 1000);
-      });
+        })
+        .finally(() => {
+          setTimeout(() => {
+            Toast.clear();
+            that.setData({
+              showList: true,
+            });
+          }, 1000);
+        });
   },
   openAuthPage() {
     wx.navigateTo({
@@ -105,5 +112,19 @@ Page({
         }
       );
     }
+  },
+  onSearch() {
+    this.loadItems()
+  },
+  onSearchInput(event) {
+    this.setData({
+      query: event.detail || ''
+    })
+  },
+  onClear() {
+    this.setData({
+      query: ''
+    })
+    this.loadItems()
   }
 });
