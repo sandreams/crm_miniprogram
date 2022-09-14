@@ -4,11 +4,11 @@
 <view class="container">
     <view class="center-profile">
       <block wx:if="{{isAuth}}">
-        <van-cell center title="您已登录" label="欢迎回来" border="{{ false }}" label-class="logininfo-label" title-class="logininfo-title" custom-class="profile-is-logged">
+        <van-cell size="large" center title="您已登录" label="欢迎回来" border="{{ false }}" label-class="logininfo-label" title-class="logininfo-title" custom-class="profile-is-logged">
         </van-cell>
       </block>
       <block wx:else>
-        <van-cell center title="登录/授权" label="立即授权，享受更多的专属服务" border="{{ false }}" label-class="logininfo-label" title-class="logininfo-title" custom-class="profile-not-logged">
+        <van-cell size="large" center title="登录/授权" label="立即授权，享受更多的专属服务" border="{{ false }}" label-class="logininfo-label" title-class="logininfo-title" custom-class="profile-not-logged">
           <view>
             <van-button round type="warning" size="small" bindtap="openAuthPage">立即授权</van-button>
           </view>
@@ -16,7 +16,7 @@
       </block>
     </view>
     <view class="section-shop-info">
-    <van-cell title="服务门店"  custom-class="shop-info" value-class="shop-info__value" title-class="shop-info__title">
+    <van-cell size="large" title="服务门店"  custom-class="shop-info" value-class="shop-info__value" title-class="shop-info__title">
     <view>
       <block wx:if="{{isShop}}">
         <text>{{userInfo.name}}</text>
@@ -28,13 +28,13 @@
   </van-cell>
     </view>
     <view class="center-service">
-      <van-cell center title="我的服务" border="{{ false }}" use-label-slot custom-class="service-list-wrap">
+      <van-cell size="large" center title="我的服务" border="{{ false }}" use-label-slot custom-class="service-list-wrap">
         <view slot="label" class="service-list">
           <van-grid column-num="4" border="{{false}}">
             <van-grid-item icon="shop-o" text="附近门店" bind:click="goToShop" />
-            <van-grid-item icon="balance-o" text="充值" />
+            <!-- <van-grid-item icon="balance-o" text="充值" />
             <van-grid-item icon="coupon-o" text="卡券中心" />
-            <van-grid-item icon="service-o" text="在线客服" />
+            <van-grid-item icon="service-o" text="在线客服" /> -->
           </van-grid>
         </view>
       </van-cell>
