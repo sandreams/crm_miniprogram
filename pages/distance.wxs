@@ -2,9 +2,9 @@ var formatted_distance = function(d) {
   var distance = parseFloat(d);
   // 当距离小于1km以m为单位显示
   if (distance < 0.01) {
-    return (1000 * distance).toString() + 'm'
+    return (1000 * distance).toFixed(2) + "m";
   }
-  return d + 'km'
+  return distance.toFixed(2) + "km";
 }
 module.exports = {
   parse: formatted_distance,

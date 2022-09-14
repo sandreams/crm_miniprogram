@@ -12,6 +12,7 @@ Page({
   data: {
     query: "",
     shops: [],
+    showList: false,
   },
   onLoad() {},
   onShow() {
@@ -45,34 +46,36 @@ Page({
   },
   loadItems() {
     const that = this;
-    const query = this.data.query
-    console.log('query: ', query);
+    const query = this.data.query;
+    this.setData({
+      showList: false,
+    });
     Toast.loading({
       duration: 0,
       message: "加载中...",
       forbidClick: true,
       loadingType: "spinner",
     });
-      request
-        .get("/wxapp/user/getShopList", {
-          data: {
-            shop_name: query,
-          },
-        })
-        .then((res) => {
-          console.log("res: ", res);
-          that.setData({
-            shops: res.data.shops,
-          });
-        })
-        .finally(() => {
-          setTimeout(() => {
-            Toast.clear();
-            that.setData({
-              showList: true,
-            });
-          }, 1000);
+    request
+      .get("/wxapp/user/getShopList", {
+        data: {
+          shop_name: query,
+        },
+      })
+      .then((res) => {
+        console.log("res: ", res);
+        that.setData({
+          shops: res.data.shops,
         });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          Toast.clear();
+          that.setData({
+            showList: true,
+          });
+        }, 500);
+      });
   },
   openAuthPage() {
     wx.navigateTo({
@@ -114,17 +117,17 @@ Page({
     }
   },
   onSearch() {
-    this.loadItems()
+    this.loadItems();
   },
   onSearchInput(event) {
     this.setData({
-      query: event.detail || ''
-    })
+      query: event.detail || "",
+    });
   },
   onClear() {
     this.setData({
-      query: ''
-    })
-    this.loadItems()
-  }
+      query: "",
+    });
+    this.loadItems();
+  },
 });

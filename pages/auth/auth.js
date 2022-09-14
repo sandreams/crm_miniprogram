@@ -82,14 +82,14 @@ Page({
   },
   getPhoneNumber(e) {
     console.log(e);
-    if (e.detail.errMsg == "getPhoneNumber:fail user deny") {
+    if (e.detail.errMsg.indexOf("user deny") >= 0) {
       // 用户拒绝授权
       // 拒绝授权弹出提示，比如‘必须要授权手机号才能进行下一步操作’
       Dialog.alert({
         title: "提示",
         message: "完成注册需要授权手机号",
-      })
-    } else if (e.detail.errMsg == "getPhoneNumber:ok") {
+      });
+    } else if (e.detail.errMsg.indexOf('ok') >= 0) {
       // 登录到后台并获取token
       const app = getApp();
       wx.setStorageSync(
