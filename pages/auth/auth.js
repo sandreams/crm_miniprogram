@@ -1,5 +1,6 @@
 // pages/auth/auth.js
 import Toast from "@vant/weapp/toast/toast";
+import Dialog from "@vant/weapp/dialog/dialog";
 
 Page({
   /**
@@ -7,7 +8,7 @@ Page({
    */
   data: {
     userInfo: {},
-    hasUserInfo: false,
+    hasUserInfo: true,
     canIUseGetUserProfile: false,
   },
 
@@ -84,14 +85,10 @@ Page({
     if (e.detail.errMsg == "getPhoneNumber:fail user deny") {
       // 用户拒绝授权
       // 拒绝授权弹出提示，比如‘必须要授权手机号才能进行下一步操作’
-      Toast.fail({
-        message: "必须要授权手机号才能进行下一步操作",
-        duration: 2000,
-        onClose: () => {
-          // 关闭当前页并返回上一页
-          wx.navigateBack();
-        },
-      });
+      Dialog.alert({
+        title: "提示",
+        message: "完成注册需要授权手机号",
+      })
     } else if (e.detail.errMsg == "getPhoneNumber:ok") {
       // 登录到后台并获取token
       const app = getApp();
